@@ -15,6 +15,12 @@
   <img src="./docs/hero.svg" alt="StudySnap AI Pro - capture, understand, move faster" width="100%">
 </div>
 
+## See it in action
+
+Watch the short demo to see how StudySnap captures a screen area, sends it to your selected AI provider, and displays a focused answer directly in the browser.
+
+**[▶ Watch the StudySnap AI Pro demo](./docs/video.mp4)**
+
 ## What is StudySnap?
 
 StudySnap AI Pro is a Chrome extension for getting focused AI help from anything visible on your screen.
