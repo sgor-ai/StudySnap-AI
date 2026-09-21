@@ -19,9 +19,11 @@
 
 Watch the short demo to see how StudySnap captures a screen area, sends it to your selected AI provider, and displays a focused answer directly in the browser.
 
-<video src="./docs/video.mp4" controls muted playsinline width="100%">
-  Your browser does not support embedded videos. [Watch the demo](./docs/video.mp4).
-</video>
+<div align="center">
+  <img src="./docs/demo.gif" alt="Animated StudySnap AI Pro demo" width="100%">
+</div>
+
+Prefer the full-quality version? **[Watch the original MP4 demo](./docs/video.mp4)**.
 
 ## What is StudySnap?
 
