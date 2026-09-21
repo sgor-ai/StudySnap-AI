@@ -1,0 +1,15 @@
+# Local and secret files
+.env
+.env.*
+*.pem
+*.key
+
+# Generated archives and OS/editor noise
+*.zip
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Local test artifacts
+screenshots/
+test-results/

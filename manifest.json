@@ -1,0 +1,91 @@
+{
+  "manifest_version": 3,
+  "name": "StudySnap AI",
+  "version": "1.0.0",
+  "description": "For all AI engineers: capture any screen area and get clear, actionable AI explanations instantly.",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "commands",
+    "tabs",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://api.anthropic.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "http://localhost:11434/*"
+    ,"http://localhost/*"
+    ,"http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "StudySnap AI Pro",
+    "default_icon": {
+      "16": "icona.png",
+      "48": "icona.png",
+      "128": "icona.png"
+    }
+  },
+  "icons": {
+    "16": "icona.png",
+    "48": "icona.png",
+    "128": "icona.png"
+  },
+  "commands": {
+    "capture-selection": {
+      "suggested_key": {
+        "default": "Alt+A",
+        "mac": "Alt+A"
+      },
+      "description": "Alt+A: capture a screen area and send it to your configured AI provider"
+    },
+    "capture-fullscreen": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "Alt+S"
+      },
+      "description": "Alt+S: capture the visible screen and send it to your configured AI provider"
+    },
+    "panic-mode": {
+      "suggested_key": {
+        "default": "Alt+0",
+        "mac": "Alt+0"
+      },
+      "description": "Alt+0: hide open answers and pause or resume StudySnap"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "katex/katex.min.js",
+        "content.js"
+      ],
+      "css": [
+        "katex/katex.min.css",
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "katex/fonts/*.woff2"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  }
+}

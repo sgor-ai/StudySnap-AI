@@ -1,0 +1,339 @@
+/* StudySnap AI Pro 2026 visual refresh: answer opacity unchanged */
+/* Overlay invisibile per cattura eventi */
+#qsa-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  /* Cursore personalizzato con doppio bordo per massima visibilità */
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3C!-- Crosshair con bordo nero esterno e bianco interno --%3E%3Cline x1='16' y1='4' x2='16' y2='28' stroke='black' stroke-width='3'/%3E%3Cline x1='4' y1='16' x2='28' y2='16' stroke='black' stroke-width='3'/%3E%3Cline x1='16' y1='4' x2='16' y2='28' stroke='white' stroke-width='1.5'/%3E%3Cline x1='4' y1='16' x2='28' y2='16' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 16 16, crosshair;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Selection box fluida - usa transform invece di modificare dimensioni direttamente */
+#qsa-selection-box {
+  position: fixed;
+  display: none;
+  pointer-events: none;
+  z-index: 2147483646;
+  will-change: transform, width, height, left, top;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Stile della selezione - applicato con pseudo-elementi per performance */
+#qsa-selection-box::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 2px;
+  background: rgba(200, 200, 200, 0.02);
+}
+
+/* L'outline esterno (oscuramento) - fatto con pseudo-elemento per performance */
+#qsa-selection-box::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.06);
+  clip-path: var(--qsa-clip, inset(0));
+  will-change: clip-path;
+  transition: none;
+}
+
+/* Answer box */
+.qsa-answer-box {
+  position: fixed;
+  bottom: 30px;
+  /* "right" viene impostato dinamicamente via JS: il box più recente resta
+     nella posizione base, quelli precedenti scorrono verso sinistra ma
+     restano visibili. La transizione qui sotto anima quello scorrimento. */
+  width: 300px;
+  max-height: 350px;
+  background: rgba(240, 240, 245, 0.55);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(128, 128, 128, 0.06);
+  border-radius: 12px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  font: 12px/1.5 -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
+  z-index: 2147483647;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: qsa-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  will-change: right, transform, opacity, background, backdrop-filter, box-shadow;
+}
+
+/* Effetto hover sul box della risposta - più visibile e leggibile */
+.qsa-answer-box:hover {
+  background: rgba(240, 240, 245, 0.85);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border-color: rgba(128, 128, 128, 0.12);
+}
+
+/* Anche il testo diventa più scuro e leggibile all'hover */
+.qsa-answer-box:hover .qsa-answer-body {
+  color: rgba(60, 60, 60, 0.8);
+}
+
+.qsa-answer-box:hover .qsa-text strong {
+  color: rgba(40, 40, 40, 0.85);
+}
+
+.qsa-answer-box:hover .qsa-answer-header {
+  color: rgba(80, 80, 80, 0.5);
+}
+
+.qsa-answer-box:hover .qsa-answer-title {
+  opacity: 0.7;
+}
+
+.qsa-answer-box:hover .qsa-copy-btn,
+.qsa-answer-box:hover .qsa-close-btn {
+  color: rgba(80, 80, 80, 0.35);
+}
+
+.qsa-answer-box:hover .qsa-copy-btn:hover,
+.qsa-answer-box:hover .qsa-close-btn:hover {
+  background: rgba(128, 128, 128, 0.08);
+  color: rgba(60, 60, 60, 0.5);
+}
+
+@keyframes qsa-fade-in {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px) scale(0.97); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+.qsa-answer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.04);
+  color: rgba(80, 80, 80, 0.25);
+  transition: color 0.3s ease;
+}
+
+.qsa-answer-title {
+  font-weight: 400;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.qsa-answer-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.qsa-copy-btn,
+.qsa-close-btn {
+  border: none;
+  background: transparent;
+  color: rgba(80, 80, 80, 0.15);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.qsa-copy-btn:hover,
+.qsa-close-btn:hover {
+  background: rgba(128, 128, 128, 0.04);
+  color: rgba(60, 60, 60, 0.3);
+}
+
+.qsa-close-btn {
+  font-size: 13px;
+  line-height: 1;
+  padding: 2px 5px;
+}
+
+.qsa-answer-body {
+  padding: 10px 14px 12px;
+  overflow-y: auto;
+  color: rgba(60, 60, 60, 0.5);
+  transition: color 0.3s ease;
+}
+
+.qsa-text {
+  white-space: normal;
+  font-weight: 300;
+  letter-spacing: 0.1px;
+}
+
+.qsa-text strong {
+  color: rgba(40, 40, 40, 0.6);
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.qsa-error {
+  color: rgba(180, 80, 80, 0.4);
+}
+
+/* Markdown-lite: elenchi e grassetto/corsivo dentro le risposte */
+.qsa-answer-body ul,
+.qsa-answer-body ol {
+  margin: 4px 0;
+  padding-left: 18px;
+}
+
+.qsa-answer-body li {
+  margin: 2px 0;
+}
+
+.qsa-answer-body em {
+  font-style: italic;
+}
+
+/* Integrazione KaTeX nel box risposte */
+.qsa-answer-body .katex {
+  font-size: 1.05em;
+  color: inherit;
+}
+
+.qsa-answer-body .katex-display {
+  margin: 0.5em 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* nasconde la scrollbar orizzontale ma la lascia utilizzabile */
+  scrollbar-width: thin;
+}
+
+.qsa-answer-body .katex-display::-webkit-scrollbar {
+  height: 3px;
+}
+
+.qsa-answer-body .katex-html {
+  /* evita che l'annotazione MathML duplicata occupi spazio */
+  white-space: normal;
+}
+
+/* Scrollbar */
+.qsa-answer-body::-webkit-scrollbar {
+  width: 2px;
+}
+
+.qsa-answer-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.qsa-answer-body::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.08);
+  border-radius: 10px;
+}
+
+.qsa-answer-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.15);
+}
+
+@media (max-width: 480px) {
+  .qsa-answer-box {
+    width: 260px;
+    max-height: 300px;
+    bottom: 20px;
+  }
+}
+/* Nessuna barretta/hint traslucida durante Ctrl+Shift+A */
+
+/* ---------------------------------------------------------------------
+   Modalità "Normale": box ben visibile, opaco e ad alto contrasto.
+   Si applica tramite la classe .qsa-mode-normal aggiunta da content.js
+   in base all'impostazione salvata nel popup (chrome.storage.local).
+   La modalità "Undercover" (.qsa-mode-undercover) corrisponde allo
+   stile di default già definito sopra e non viene modificata.
+--------------------------------------------------------------------- */
+.qsa-answer-box.qsa-mode-normal {
+  background: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+}
+
+.qsa-answer-box.qsa-mode-normal:hover {
+  background: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.16);
+}
+
+.qsa-answer-box.qsa-mode-normal .qsa-answer-header {
+  background: #f4f3ff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: #4c3ee0;
+}
+
+.qsa-answer-box.qsa-mode-normal:hover .qsa-answer-header {
+  color: #4c3ee0;
+}
+
+.qsa-answer-box.qsa-mode-normal .qsa-answer-title {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 1;
+}
+
+.qsa-answer-box.qsa-mode-normal:hover .qsa-answer-title {
+  opacity: 1;
+}
+
+.qsa-answer-box.qsa-mode-normal .qsa-copy-btn,
+.qsa-answer-box.qsa-mode-normal .qsa-close-btn {
+  color: rgba(76, 62, 224, 0.6);
+}
+
+.qsa-answer-box.qsa-mode-normal .qsa-copy-btn:hover,
+.qsa-answer-box.qsa-mode-normal .qsa-close-btn:hover,
+.qsa-answer-box.qsa-mode-normal:hover .qsa-copy-btn:hover,
+.qsa-answer-box.qsa-mode-normal:hover .qsa-close-btn:hover {
+  background: rgba(76, 62, 224, 0.1);
+  color: #4c3ee0;
+}
+
+.qsa-answer-box.qsa-mode-normal .qsa-answer-body,
+.qsa-answer-box.qsa-mode-normal:hover .qsa-answer-body {
+  color: #1f2328;
+}
+
+.qsa-answer-box.qsa-mode-normal .qsa-text strong,
+.qsa-answer-box.qsa-mode-normal:hover .qsa-text strong {
+  color: #14161a;
+}
+
+.qsa-answer-box.qsa-mode-normal .qsa-error {
+  color: #b3261e;
+}

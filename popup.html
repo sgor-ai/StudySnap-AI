@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<title id="pageTitle">StudySnap AI - Impostazioni</title>
+<style>
+  :root {
+    --primary: #7c5cff;
+    --primary-hover: #5b4de0;
+    --bg-main: #fcfcfd;
+    --bg-card: #ffffff;
+    --text-main: #1f2328;
+    --text-muted: #656d76;
+    --border: #d0d7de;
+    --border-focus: #6d5efc;
+    --success: #1a7f37;
+    --danger: #cf222e;
+    --code-bg: #f6f8fa;
+    --info-bg: #f4f3ff;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+  }
+
+  body {
+    width: 360px;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    background: linear-gradient(180deg,#fcfcfd,#f6f7fb);
+    color: var(--text-main);
+    padding: 16px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eaeef2;
+    padding-bottom: 12px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header-left img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  h1 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+  }
+
+  .icon-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 6px 8px;
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    flex-shrink: 0;
+  }
+
+  .icon-btn:hover {
+    background: #f3f4f6;
+  }
+
+  .field-group {
+    margin-bottom: 16px;
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-main);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  select, input {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    box-sizing: border-box;
+    font-size: 13px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    appearance: none;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 12 12'%3E%3Cpath stroke='%23656d76' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9 4.5L6 7.5 3 4.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+  }
+
+  select:focus, input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(109, 94, 252, 0.15);
+  }
+
+  .profile-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .profile-row select {
+    flex: 1;
+  }
+
+  .profile-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .btn-secondary {
+    margin-top: 0;
+    padding: 6px 10px;
+    background: #f3f4f6;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    font-size: 11px;
+    box-shadow: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .btn-secondary:hover {
+    background: #e5e7eb;
+  }
+
+  .btn-danger {
+    color: var(--danger);
+  }
+
+  .rename-container {
+    display: none;
+    margin-top: 6px;
+    gap: 6px;
+  }
+
+  .rename-container.visible {
+    display: flex;
+  }
+
+  .rename-container input {
+    padding: 6px 10px;
+    font-size: 12px;
+    height: 32px;
+  }
+
+  .rename-container button {
+    margin-top: 0;
+    width: auto;
+    padding: 6px 12px;
+    font-size: 11px;
+    height: 32px;
+  }
+
+  button.main-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.05s ease;
+    box-shadow: 0 2px 5px rgba(109, 94, 252, 0.3);
+  }
+
+  button.main-btn:hover { 
+    background: var(--primary-hover); 
+  }
+
+  button.main-btn:active {
+    transform: scale(0.99);
+  }
+
+  #status {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--success);
+    text-align: center;
+    min-height: 18px;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  code {
+    background: var(--code-bg);
+    border: 1px solid rgba(27, 31, 35, 0.1);
+    padding: 2px 5px;
+    border-radius: var(--radius-sm);
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    color: #d12483;
+  }
+
+  .shortcut {
+    margin-top: 20px;
+    padding: 12px;
+    background: var(--info-bg);
+    border: 1px solid rgba(109, 94, 252, 0.2);
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    color: #4c3ee0;
+  }
+
+  .shortcut b {
+    font-weight: 600;
+  }
+
+  .hint a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .hint a:hover {
+    text-decoration: underline;
+  }
+
+  /* Pannello impostazioni generali (lingua), aperto dall'icona ⚙️ */
+  .settings-panel {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: var(--bg-main);
+    padding: 16px;
+    box-sizing: border-box;
+    z-index: 10;
+  }
+
+  .settings-panel.visible {
+    display: block;
+  }
+
+  .settings-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #eaeef2;
+    padding-bottom: 12px;
+  }
+
+  .settings-header h2 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .display-mode-group { margin-top: 2px; }
+  .mode-toggle-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 12px;
+    background: #f7f7fb;
+    border: 1px solid #e3e5eb;
+    border-radius: var(--radius-md);
+  }
+  .mode-toggle-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .mode-toggle-copy strong { font-size: 13px; }
+  .mode-toggle-copy span { color: var(--text-muted); font-size: 11px; line-height: 1.35; }
+  .switch {
+    position: relative;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 24px;
+    padding: 2px;
+    border: 0;
+    border-radius: 999px;
+    background: #c7cbd4;
+    cursor: pointer;
+    transition: background .2s ease;
+  }
+  .switch .switch-knob {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.18);
+    transform: translateX(0);
+    transition: transform .2s ease;
+  }
+  .switch[aria-checked="true"] { background: var(--primary); }
+  .switch[aria-checked="true"] .switch-knob { transform: translateX(18px); }
+  .switch:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(109,94,252,.18); }
+
+  .panic-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 10px;
+    padding: 5px 3px;
+  }
+  .panic-status:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+  .panic-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #111827;
+    box-shadow: 0 0 0 1px rgba(17,24,39,.15);
+  }
+  .panic-status[aria-checked="true"] .panic-dot {
+    background: #ef233c;
+    box-shadow: 0 0 7px rgba(239,35,60,.85);
+  }
+
+  .signature {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: .2px;
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <img src="icona.png" alt="Icona StudySnap AI">
+      <h1 data-i18n="appTitle">StudySnap AI</h1>
+    </div>
+    <div style="display:flex;align-items:center;gap:5px;">
+      <button id="panicStatus" class="panic-status" type="button" role="switch" aria-checked="false" aria-label="Panic mode" title="Panic mode">
+        <span data-i18n="panicLabel">Panic mode</span>
+        <span id="panicDot" class="panic-dot" aria-hidden="true"></span>
+      </button>
+      <button id="settingsBtn" type="button" class="icon-btn" data-i18n-title="settingsGearTitle" title="Impostazioni generali">⚙️</button>
+    </div>
+  </div>
+
+  <div id="settingsPanel" class="settings-panel">
+    <div class="settings-header">
+      <button id="settingsBackBtn" type="button" class="icon-btn" style="padding:6px 8px; font-size:14px;">←</button>
+      <h2 data-i18n="settingsPanelTitle">Impostazioni generali</h2>
+    </div>
+
+    <div class="field-group">
+      <label for="language" data-i18n="languageLabel">Lingua (interfaccia e risposte AI)</label>
+      <select id="language">
+        <option value="it">Italiano</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="pt">Português</option>
+        <option value="zh">中文 (普通话)</option>
+        <option value="hi">हिन्दी</option>
+        <option value="ar">العربية</option>
+        <option value="ru">Русский</option>
+      </select>
+      <div class="hint" data-i18n="languageHint">Cambia sia la lingua del popup sia la lingua in cui l'AI risponde.</div>
+    </div>
+  </div>
+
+
+  <div class="field-group display-mode-group">
+    <label data-i18n="displayModeLabel">Modalità risposta</label>
+    <div class="mode-toggle-card">
+      <div class="mode-toggle-copy">
+        <strong id="modeTitle">Undercover</strong>
+        <span id="modeDescription">Come adesso: risposta discreta e poco evidente.</span>
+      </div>
+      <button id="undercoverToggle" class="switch" type="button" role="switch" aria-checked="true" aria-label="Undercover">
+        <span class="switch-knob"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="field-group display-mode-group">
+    <label data-i18n="fallbackLabel">Fallback automatico</label>
+    <div class="mode-toggle-card">
+      <div class="mode-toggle-copy">
+        <strong id="fallbackTitle">Attivo</strong>
+        <span id="fallbackDescription">Passa a un altro profilo/provider se si verifica un errore.</span>
+      </div>
+
+      <button id="fallbackToggle" class="switch" type="button" role="switch" aria-checked="true" aria-label="Fallback automatico">
+        <span class="switch-knob"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label for="profileSelect" data-i18n="activeProfileLabel">Profilo Attivo</label>
+    <div class="profile-row">
+      <select id="profileSelect"></select>
+    </div>
+    <div class="profile-actions">
+      <button id="newProfileBtn" type="button" class="btn-secondary" data-i18n="newProfileBtn">+ Nuovo</button>
+      <button id="renameProfileBtn" type="button" class="btn-secondary" data-i18n="renameProfileBtn">Modifica Nome</button>
+      <button id="deleteProfileBtn" type="button" class="btn-secondary btn-danger" data-i18n="deleteProfileBtn">Elimina</button>
+    </div>
+    <div id="renameContainer" class="rename-container">
+      <input id="renameInput" type="text" data-i18n-placeholder="renamePlaceholder" placeholder="Nuovo nome profilo..." />
+      <button id="renameSaveBtn" type="button" class="btn-secondary" style="background:var(--primary); color:#fff; border-color:var(--primary);" data-i18n="renameSaveBtn">Salva</button>
+    </div>
+  </div>
+
+  <div class="field-group">
+    <label for="provider" data-i18n="aiProviderLabel">Provider AI</label>
+    <select id="provider">
+      <option value="auto">Auto — fallback intelligente</option>
+      <option value="gemini" data-i18n="providerGemini">Google Gemini (API gratuita, cloud)</option>
+      <option value="local" data-i18n="providerLocalHost">Local host / AI locale (Ollama, LM Studio, Jan, GPT4All...)</option>
+      <option value="openai" data-i18n="providerOpenai">OpenAI (cloud)</option>
+      <option value="anthropic" data-i18n="providerAnthropic">Anthropic (Claude)</option>
+    </select>
+  </div>
+
+  <div class="field-group">
+    <label for="localEngine" data-i18n="localEngineLabel">Motore locale</label>
+    <select id="localEngine">
+      <option value="ollama" data-i18n="localEngineOllama">Ollama</option>
+      <option value="openai-compatible" data-i18n="localEngineCompatible">OpenAI-compatible (LM Studio, Jan, GPT4All, LocalAI...)</option>
+    </select>
+  </div>
+
+  <div class="field-group">
+    <label for="model" data-i18n="modelLabel">Modello</label>
+    <input id="model" type="text" data-i18n-placeholder="modelPlaceholder" placeholder="es. gemini-2.5-flash" />
+    <div class="hint" data-i18n="modelHint">Lascia vuoto per usare il default consigliato.</div>
+  </div>
+
+  <div class="field-group">
+    <label for="endpoint" data-i18n="endpointLabel">URL server locale</label>
+    <input id="endpoint" type="url" data-i18n-placeholder="endpointPlaceholder" placeholder="es. http://localhost:1234/v1" />
+    <div class="hint" data-i18n="endpointHint">Solo per AI locali OpenAI-compatible. Inserisci l'URL base che espone /v1/models e /v1/chat/completions.</div>
+  </div>
+
+  <div class="field-group">
+    <label for="apiKey" data-i18n="apiKeyLabel">API Key</label>
+    <input id="apiKey" type="password" data-i18n-placeholder="apiKeyPlaceholder" placeholder="La tua API key" />
+    <div class="hint" data-i18n="apiKeyHint">Non richiesta per Ollama. Per server OpenAI-compatible usala solo se il server la richiede.</div>
+    <div class="hint" id="geminiHint" data-i18n-html="geminiHintHtml" style="margin-top: 8px;">
+      💡 Gemini: ottieni la key gratis su <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> → "Get API key". Nessuna carta richiesta.
+    </div>
+    <div class="hint" id="ollamaHint" data-i18n-html="ollamaHintHtml" style="margin-top: 8px;">
+      💡 Ollama: installa <b>ollama.com</b>, poi da terminale: <code>ollama pull llava</code>.<br>
+      Avvia con <code>OLLAMA_ORIGINS=* ollama serve</code>. Il primo screenshot può richiedere più tempo mentre il modello viene caricato.
+    </div>
+    <div class="hint" id="localOpenAIHint" data-i18n-html="localOpenAIHintHtml" style="margin-top: 8px;"></div>
+  </div>
+
+  <button id="testConnectionBtn" type="button" class="btn-secondary" style="width:100%; margin-top:14px; padding:8px; text-align:center; font-size:12px;" data-i18n="testConnectionBtn">🔌 Testa connessione</button>
+  <div id="testStatus" style="margin-top:6px; font-size:12px; font-weight:500; text-align:center; min-height:16px;"></div>
+
+  <button id="workspaceBtn" type="button" class="main-btn" style="background:#17181c;box-shadow:none;margin-top:10px;">✦ Apri StudySnap Workspace</button>
+  <button id="saveBtn" class="main-btn" data-i18n="saveSettingsBtn">Salva impostazioni</button>
+  <div id="status"></div>
+
+  <div class="shortcut" id="shortcutBox" data-i18n-html="shortcutHtml">
+    ⌨️ Scorciatoie: <b>Alt+A</b> per selezionare un'area, <b>Alt+S</b> per catturare l'intera schermata visibile, <b>Alt+0</b> per la panic mode.
+  </div>
+  <div class="signature" data-i18n="signature">Creato con cura da SGOR</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
