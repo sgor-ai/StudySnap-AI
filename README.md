@@ -2,7 +2,7 @@
   <img src="./icona.png" alt="StudySnap AI Pro icon" width="128">
   <h1>StudySnap AI Pro</h1>
   <p><strong>Choose your AI. Snap your screen. Understand faster.</strong></p>
-  <p>Built and signed by <strong>SGOR</strong>.</p>
+  <p>Created by <strong><a href="https://github.com/sgor-ai">sgor</a></strong>.</p>
   <p>
     <img src="https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4?logo=googlechrome&logoColor=white" alt="Chrome Manifest V3">
     <img src="https://img.shields.io/badge/version-1.0.0-6d5efc" alt="Version 1.0.0">
@@ -236,6 +236,10 @@ StudySnap does not include its own AI model. Captured images and prompts are sen
 - Do not capture passwords, private keys, confidential customer data or anything you are not allowed to share.
 
 AI answers may be incomplete or incorrect. Verify important academic, technical, legal and safety-critical information.
+
+## Creator
+
+StudySnap AI Pro is created and maintained by [sgor](https://github.com/sgor-ai).
 
 ## License
 
