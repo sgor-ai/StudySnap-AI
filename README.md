@@ -65,7 +65,13 @@ Capture a selected area or the visible screen, send it to the AI provider you ch
 - Local history, cache and Markdown/PDF export.
 - Panic mode with `Alt+0`.
 
-## Install in Chrome
+## Requirements
+
+- Google Chrome or another Chromium-based browser with Manifest V3 support.
+- Permission to load an unpacked extension in developer mode.
+- A cloud AI API key or a compatible local AI server, depending on the provider you choose.
+
+## Installation
 
 1. Download this repository and extract it if needed.
 2. Open Chrome and go to `chrome://extensions`.
@@ -76,7 +82,7 @@ Capture a selected area or the visible screen, send it to the AI provider you ch
 
 After changing files, return to `chrome://extensions` and click **Reload** on StudySnap.
 
-## Quick setup
+## Usage
 
 1. Click the StudySnap icon.
 2. Open **General settings** with the gear button.
