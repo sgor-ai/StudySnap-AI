@@ -6,64 +6,64 @@
   <img src="./docs/demo.gif" alt="StudySnap AI demo" width="100%">
 </div>
 
-Estensione Chrome per analizzare pagine, esercizi, testo e immagini con un provider AI.
-Pensata anche per supportare lo studio senza modificare automaticamente la pagina
-quando l'opzione **Auto-answer** è disattivata.
+A Chrome extension for analyzing webpages, exercises, text and images with an AI provider.
+It can also assist with study forms without changing the page when **Auto-answer** is disabled.
 
-## Funzioni
+## Features
 
-- Acquisizione di un'area con `Alt+A`.
-- Risoluzione strutturata di una pagina con `Alt+9`.
-- Analisi di testo o immagini dal menu contestuale **Answer by StudySnap AI**.
-- Supporto per Google Forms, Microsoft Forms e pagine HTML/ARIA comuni.
-- Risposte nel box integrato e cronologia nel workspace.
-- Compilazione automatica opzionale di radio, checkbox, select e campi di testo.
-- Supporto per domande con immagini e contesti condivisi.
-- Protezione dei campi Name, Class, email, matricola e simili.
-- Modalità **Auto-answer** e **Panic mode** (`Alt+0`).
+- Capture an area with `Alt+A`.
+- Solve a structured page with `Alt+9`.
+- Analyze selected text or images from the **Answer by StudySnap AI** context menu.
+- Support for Google Forms, Microsoft Forms and common HTML/ARIA pages.
+- Answers in the in-page box and workspace history.
+- Optional filling of radio buttons, checkboxes, selects and text fields.
+- Support for image-based questions and shared context.
+- Protection for Name, Class, email, student ID and similar fields.
+- **Auto-answer** and **Panic mode** (`Alt+0`).
 
-## Comandi
+## Shortcuts
 
-| Comando | Azione |
+| Shortcut | Action |
 | --- | --- |
-| `Alt+A` | Seleziona un'area e chiedi una risposta all'AI |
-| `Alt+9` | Analizza la pagina e risolvi le domande rilevate |
-| `Alt+0` | Attiva o disattiva la panic mode |
-| Menu contestuale | Analizza testo o immagini selezionate |
+| `Alt+A` | Select an area and ask the AI |
+| `Alt+9` | Analyze the page and solve detected questions |
+| `Alt+0` | Enable or disable panic mode |
+| Context menu | Analyze selected text or images |
 
 ## Auto-answer
 
-- **Disattivato:** mostra la risposta senza modificare i campi della pagina.
-- **Attivato:** può selezionare opzioni e compilare i campi compatibili.
-- Il modulo non viene inviato automaticamente.
-- I campi identificativi restano protetti.
+- **Disabled:** shows the answer without changing page fields.
+- **Enabled:** can select options and fill compatible fields.
+- The form is never submitted automatically.
+- Identity fields remain protected.
 
-## Provider supportati
+## Supported providers
 
 - OpenAI
 - Google Gemini
 - Anthropic
 - Ollama
-- Server locali OpenAI-compatible, come LM Studio, Jan, GPT4All, LocalAI e vLLM
+- OpenAI-compatible local servers such as LM Studio, Jan, GPT4All, LocalAI and vLLM
 
-## Installazione
+## Installation
 
-1. Scarica o clona il repository.
-2. Apri `chrome://extensions`.
-3. Attiva **Modalità sviluppatore**.
-4. Seleziona **Carica estensione non pacchettizzata**.
-5. Scegli la cartella che contiene `manifest.json`.
-6. Configura provider, modello e API key dal popup.
+1. Download or clone the repository.
+2. Open `chrome://extensions`.
+3. Enable **Developer mode**.
+4. Select **Load unpacked**.
+5. Choose the folder containing `manifest.json`.
+6. Configure the provider, model and API key in the popup.
 
-Per aggiornare l'estensione, ricaricala da `chrome://extensions`.
+Reload the extension from `chrome://extensions` after updating it.
 
 ## Release
 
-La versione corrente è **2.0.0**.
+Current version: **2.0.0**.
 
-[Scarica l'ultima release](https://github.com/sgor-ai/StudySnap-AI/releases)
+[Download the latest release](https://github.com/sgor-ai/StudySnap-AI/releases)
 
 ## Privacy
 
-Le impostazioni, la cronologia e le immagini salvate restano nel browser.
-Il contenuto acquisito viene inviato solo al provider AI configurato.
+Settings, history and saved images remain in the browser.
+Captured content is sent only to the configured AI provider.
+
