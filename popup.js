@@ -11,7 +11,7 @@ const TRANSLATIONS = {
     settingsPanelTitle: "Impostazioni generali",
     displayModeLabel: "Modalità risposta",
     modeUndercover: "Undercover",
-    modeUndercoverDesc: "Come adesso: risposta discreta e poco evidente.",
+    modeUndercoverDesc: "Risposta discreta e poco evidente.",
     modeNormal: "Normale",
     modeNormalDesc: "Risposta evidente in un box ben visibile.",
     fallbackLabel: "Fallback automatico",
@@ -19,6 +19,17 @@ const TRANSLATIONS = {
     fallbackOff: "Disattivato",
     fallbackOnDesc: "Passa a un altro profilo/provider se si verifica un errore.",
     fallbackOffDesc: "Resta sul provider selezionato senza cambiare profilo.",
+    autoAnswerLabel: "Auto-answer",
+    autoAnswerOn: "Attivato",
+    autoAnswerOff: "Disattivato",
+    autoAnswerOnDesc: "Seleziona l'opzione o compila il campo di risposta.",
+    autoAnswerOffDesc: "Mostra solo la risposta nel box StudySnap.",
+    autoAnswerWarning: "Non invia automaticamente il modulo.",
+    answerBoxLabel: "Box risposte",
+    answerBoxOn: "Visibile",
+    answerBoxOff: "Nascosto",
+    answerBoxOnDesc: "Mostra il box con la risposta dell'AI.",
+    answerBoxOffDesc: "Nasconde il box, mantenendo attive acquisizione e compilazione.",
     panicLabel: "Panic mode",
     panicOn: "Attiva",
     panicOff: "Disattivata",
@@ -56,7 +67,7 @@ const TRANSLATIONS = {
     testConnectionBtn: "🔌 Testa connessione",
     saveSettingsBtn: "Salva impostazioni",
     signature: "Creato con cura da SGOR",
-    shortcutHtml: '⌨️ Scorciatoie: <b>Alt+A</b> seleziona un\'area, <b>Alt+S</b> cattura la schermata, <b>Alt+0</b> attiva/disattiva la panic mode. Se una scorciatoia è occupata, cambiala in <code>chrome://extensions/shortcuts</code>.',
+    shortcutHtml: '⌨️ Scorciatoie: <b>Alt+A</b> seleziona un\'area, <b>Alt+9</b> risolve l\'intera pagina, <b>Alt+0</b> attiva/disattiva la panic mode. Se una scorciatoia è occupata, cambiala in <code>chrome://extensions/shortcuts</code>.',
     statusProfileUpdated: "Profilo attivo aggiornato ✔",
     statusProfileCreated: "Nuovo profilo creato ✔",
     statusProfileRenamed: "Nome profilo aggiornato ✔",
@@ -88,7 +99,7 @@ const TRANSLATIONS = {
     settingsPanelTitle: "General settings",
     displayModeLabel: "Answer display",
     modeUndercover: "Undercover",
-    modeUndercoverDesc: "Like now: discreet and low-visibility answer.",
+    modeUndercoverDesc: "Discreet, low-visibility answer.",
     modeNormal: "Normal",
     modeNormalDesc: "Answer shown in a clearly visible box.",
     fallbackLabel: "Automatic fallback",
@@ -96,6 +107,17 @@ const TRANSLATIONS = {
     fallbackOff: "Disabled",
     fallbackOnDesc: "Switch to another profile/provider when an error occurs.",
     fallbackOffDesc: "Stay on the selected provider without switching.",
+    autoAnswerLabel: "Auto-answer",
+    autoAnswerOn: "Enabled",
+    autoAnswerOff: "Disabled",
+    autoAnswerOnDesc: "Selects an option or fills the answer field.",
+    autoAnswerOffDesc: "Only shows the answer in the StudySnap box.",
+    autoAnswerWarning: "The form is never submitted automatically.",
+    answerBoxLabel: "Answer box",
+    answerBoxOn: "Visible",
+    answerBoxOff: "Hidden",
+    answerBoxOnDesc: "Shows the AI answer box.",
+    answerBoxOffDesc: "Hides the box while keeping capture and auto-answer active.",
     panicLabel: "Panic mode",
     panicOn: "Enabled",
     panicOff: "Disabled",
@@ -133,7 +155,7 @@ const TRANSLATIONS = {
     testConnectionBtn: "🔌 Test connection",
     saveSettingsBtn: "Save settings",
     signature: "Crafted with care by SGOR",
-    shortcutHtml: '⌨️ Shortcuts: <b>Alt+A</b> selects an area, <b>Alt+S</b> captures the screen, <b>Alt+0</b> toggles panic mode. If a shortcut is already used, change it at <code>chrome://extensions/shortcuts</code>.',
+    shortcutHtml: '⌨️ Shortcuts: <b>Alt+A</b> selects an area, <b>Alt+9</b> solves the complete page, <b>Alt+0</b> toggles panic mode. If a shortcut is already used, change it at <code>chrome://extensions/shortcuts</code>.',
     statusProfileUpdated: "Active profile updated ✔",
     statusProfileCreated: "New profile created ✔",
     statusProfileRenamed: "Profile name updated ✔",
@@ -208,13 +230,24 @@ const testConnectionBtn = document.getElementById("testConnectionBtn");
 const testStatusEl = document.getElementById("testStatus");
 const undercoverToggle = document.getElementById("undercoverToggle");
 const fallbackToggle = document.getElementById("fallbackToggle");
+const autoAnswerToggle = document.getElementById("autoAnswerToggle");
+const answerBoxToggle = document.getElementById("answerBoxToggle");
 const panicStatus = document.getElementById("panicStatus");
 const fallbackTitleEl = document.getElementById("fallbackTitle");
 const fallbackDescriptionEl = document.getElementById("fallbackDescription");
+const autoAnswerTitleEl = document.getElementById("autoAnswerTitle");
+const autoAnswerDescriptionEl = document.getElementById("autoAnswerDescription");
+const answerBoxTitleEl = document.getElementById("answerBoxTitle");
+const answerBoxDescriptionEl = document.getElementById("answerBoxDescription");
+const answerBoxUnderToggle = document.getElementById("answerBoxUnderToggle");
 const modeTitleEl = document.getElementById("modeTitle");
 const modeDescriptionEl = document.getElementById("modeDescription");
+const modeNormalIconEl = document.getElementById("modeNormalIcon");
+const modeIncognitoIconEl = document.getElementById("modeIncognitoIcon");
 let undercoverMode = true;
 let autoFallback = true;
+let autoAnswer = false;
+let answerBoxVisible = true;
 let panicMode = false;
 
 function updateDisplayModeUI() {
@@ -222,6 +255,10 @@ function updateDisplayModeUI() {
   modeTitleEl.textContent = t(undercoverMode ? "modeUndercover" : "modeNormal");
   modeDescriptionEl.textContent = t(undercoverMode ? "modeUndercoverDesc" : "modeNormalDesc");
   undercoverToggle.title = modeTitleEl.textContent;
+  modeNormalIconEl.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8.5C5.8 16.8 8.1 15 12 15s6.2 1.8 7 5.5H5Z"/></svg>';
+  modeIncognitoIconEl.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 2.5 17.8 2.5 20 9.4 4 9.4 6.2 2.5ZM2 11.2c3.1-1.5 6.5-2.2 10-2.2s6.9.7 10 2.2H2ZM7 13.1a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm10 0a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2ZM9.9 15.7h4.2v1H9.9v-1Z"/></svg>';
+  modeNormalIconEl.classList.toggle("active", !undercoverMode);
+  modeIncognitoIconEl.classList.toggle("active", undercoverMode);
 }
 
 undercoverToggle.addEventListener("click", async () => {
@@ -240,6 +277,32 @@ fallbackToggle.addEventListener("click", async () => {
   autoFallback = !autoFallback;
   updateFallbackUI();
   await chrome.storage.local.set({ autoProvider: autoFallback });
+});
+
+function updateAutoAnswerUI() {
+  autoAnswerToggle.setAttribute("aria-checked", String(autoAnswer));
+  autoAnswerTitleEl.textContent = t(autoAnswer ? "autoAnswerOn" : "autoAnswerOff");
+  autoAnswerDescriptionEl.textContent = t(autoAnswer ? "autoAnswerOnDesc" : "autoAnswerOffDesc");
+  autoAnswerToggle.title = autoAnswerTitleEl.textContent;
+}
+
+autoAnswerToggle.addEventListener("click", async () => {
+  autoAnswer = !autoAnswer;
+  updateAutoAnswerUI();
+  await chrome.storage.local.set({ autoAnswer });
+});
+
+function updateAnswerBoxUI() {
+  answerBoxToggle.setAttribute("aria-checked", String(answerBoxVisible));
+  answerBoxTitleEl.textContent = t(answerBoxVisible ? "answerBoxOn" : "answerBoxOff");
+  answerBoxDescriptionEl.textContent = t(answerBoxVisible ? "answerBoxOnDesc" : "answerBoxOffDesc");
+  answerBoxUnderToggle.hidden = !answerBoxVisible;
+}
+
+answerBoxToggle.addEventListener("click", async () => {
+  answerBoxVisible = !answerBoxVisible;
+  updateAnswerBoxUI();
+  await chrome.storage.local.set({ answerBoxVisible });
 });
 
 function updatePanicUI() {
@@ -313,6 +376,7 @@ languageEl.addEventListener("change", async () => {
   applyTranslations();
   updateDisplayModeUI();
   updateFallbackUI();
+  updateAutoAnswerUI();
   await chrome.storage.local.set({ language: currentLanguage });
 });
 
@@ -346,14 +410,18 @@ endpointEl.addEventListener("input", () => {
 });
 
 async function load() {
-  const data = await chrome.storage.local.get(["profiles", "activeProfileId", "provider", "apiKey", "model", "language", "undercoverMode", "autoProvider", "panicMode"]);
+  const data = await chrome.storage.local.get(["profiles", "activeProfileId", "provider", "apiKey", "model", "language", "undercoverMode", "autoProvider", "autoAnswer", "answerBoxVisible", "panicMode"]);
 
   currentLanguage = data.language || "it";
   undercoverMode = data.undercoverMode !== false;
   autoFallback = data.autoProvider !== false;
+  autoAnswer = data.autoAnswer === true;
+  answerBoxVisible = data.answerBoxVisible !== false;
   panicMode = data.panicMode === true;
   updateDisplayModeUI();
   updateFallbackUI();
+  updateAutoAnswerUI();
+  updateAnswerBoxUI();
   updatePanicUI();
   languageEl.value = currentLanguage;
   applyTranslations();

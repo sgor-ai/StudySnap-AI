@@ -1,17 +1,21 @@
 {
   "manifest_version": 3,
   "name": "StudySnap AI",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "For all AI engineers: capture any screen area and get clear, actionable AI explanations instantly.",
   "permissions": [
     "activeTab",
     "storage",
     "scripting",
     "commands",
+    "contextMenus",
     "tabs",
+    "webNavigation",
     "sidePanel"
   ],
   "host_permissions": [
+    "<all_urls>",
+    "https://hive.forms.usercontent.microsoft/*",
     "https://api.openai.com/*",
     "https://api.anthropic.com/*",
     "https://generativelanguage.googleapis.com/*",
@@ -44,12 +48,12 @@
       },
       "description": "Alt+A: capture a screen area and send it to your configured AI provider"
     },
-    "capture-fullscreen": {
+    "solve-page": {
       "suggested_key": {
-        "default": "Alt+S",
-        "mac": "Alt+S"
+        "default": "Alt+9",
+        "mac": "Alt+9"
       },
-      "description": "Alt+S: capture the visible screen and send it to your configured AI provider"
+      "description": "Alt+9: solve the complete form page and select or fill its answers"
     },
     "panic-mode": {
       "suggested_key": {
@@ -72,6 +76,7 @@
         "katex/katex.min.css",
         "content.css"
       ],
+      "all_frames": true,
       "run_at": "document_idle"
     }
   ],

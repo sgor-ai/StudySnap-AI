@@ -283,6 +283,54 @@
   }
 
   .display-mode-group { margin-top: 2px; }
+  .answer-box-under-toggle {
+    margin: 6px 0 0 12px;
+    padding-left: 8px;
+    border-left: 2px solid rgba(124, 92, 255, .2);
+  }
+  .answer-box-under-toggle[hidden] { display: none; }
+  .mode-icon-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px;
+    border: 1px solid #d9dce5;
+    border-radius: 999px;
+    background: #eef0f5;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .mode-icon-toggle:hover {
+    border-color: #bdb7f5;
+    background: #e9e7fb;
+  }
+  .mode-icon-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #596273;
+    opacity: .45;
+    transition: color .2s ease, opacity .2s ease, background .2s ease, transform .2s ease;
+  }
+  .mode-icon-option.active {
+    color: var(--primary);
+    opacity: 1;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(48, 42, 110, .16);
+    transform: scale(1.05);
+  }
+  .mode-icon-option svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+  .answer-box-under-toggle .mode-toggle-copy {
+    display: flex;
+    align-items: center;
+  }
   .mode-toggle-card {
     display: flex;
     align-items: center;
@@ -351,6 +399,13 @@
     box-shadow: 0 0 7px rgba(239,35,60,.85);
   }
 
+  .auto-answer-warning {
+    margin-top: 6px;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
   .signature {
     margin-top: 14px;
     text-align: center;
@@ -383,6 +438,60 @@
       <h2 data-i18n="settingsPanelTitle">Impostazioni generali</h2>
     </div>
 
+    <div class="field-group display-mode-group">
+      <label data-i18n="autoAnswerLabel">Auto-answer</label>
+      <div class="mode-toggle-card">
+        <div class="mode-toggle-copy">
+          <strong id="autoAnswerTitle">Disattivato</strong>
+          <span id="autoAnswerDescription">Compila automaticamente l'opzione o il campo di risposta.</span>
+        </div>
+        <button id="autoAnswerToggle" class="switch" type="button" role="switch" aria-checked="false" aria-label="Auto-answer">
+          <span class="switch-knob"></span>
+        </button>
+      </div>
+      <div class="auto-answer-warning" data-i18n="autoAnswerWarning">Non invia automaticamente il modulo.</div>
+    </div>
+
+    <div class="field-group display-mode-group">
+      <label data-i18n="fallbackLabel">Fallback automatico</label>
+      <div class="mode-toggle-card">
+        <div class="mode-toggle-copy">
+          <strong id="fallbackTitle">Attivo</strong>
+          <span id="fallbackDescription">Passa a un altro profilo/provider se si verifica un errore.</span>
+        </div>
+        <button id="fallbackToggle" class="switch" type="button" role="switch" aria-checked="true" aria-label="Fallback automatico">
+          <span class="switch-knob"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="field-group display-mode-group">
+      <label data-i18n="answerBoxLabel">Box risposte</label>
+      <div class="mode-toggle-card">
+        <div class="mode-toggle-copy">
+          <strong id="answerBoxTitle">Visibile</strong>
+          <span id="answerBoxDescription">Mostra il box con la risposta dell'AI.</span>
+        </div>
+        <button id="answerBoxToggle" class="switch" type="button" role="switch" aria-checked="true" aria-label="Box risposte">
+          <span class="switch-knob"></span>
+        </button>
+      </div>
+      <div id="answerBoxUnderToggle" class="answer-box-under-toggle" hidden>
+        <div class="mode-toggle-card">
+          <div class="mode-toggle-copy">
+            <div>
+              <strong id="modeTitle">Undercover</strong>
+              <span id="modeDescription">Risposta discreta e poco evidente.</span>
+            </div>
+          </div>
+          <button id="undercoverToggle" class="mode-icon-toggle" type="button" role="switch" aria-checked="true" aria-label="Undercover" title="Undercover">
+            <span id="modeNormalIcon" class="mode-icon-option" aria-label="Normale"></span>
+            <span id="modeIncognitoIcon" class="mode-icon-option" aria-label="Undercover"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="field-group">
       <label for="language" data-i18n="languageLabel">Lingua (interfaccia e risposte AI)</label>
       <select id="language">
@@ -398,34 +507,6 @@
         <option value="ru">Русский</option>
       </select>
       <div class="hint" data-i18n="languageHint">Cambia sia la lingua del popup sia la lingua in cui l'AI risponde.</div>
-    </div>
-  </div>
-
-
-  <div class="field-group display-mode-group">
-    <label data-i18n="displayModeLabel">Modalità risposta</label>
-    <div class="mode-toggle-card">
-      <div class="mode-toggle-copy">
-        <strong id="modeTitle">Undercover</strong>
-        <span id="modeDescription">Come adesso: risposta discreta e poco evidente.</span>
-      </div>
-      <button id="undercoverToggle" class="switch" type="button" role="switch" aria-checked="true" aria-label="Undercover">
-        <span class="switch-knob"></span>
-      </button>
-    </div>
-  </div>
-
-  <div class="field-group display-mode-group">
-    <label data-i18n="fallbackLabel">Fallback automatico</label>
-    <div class="mode-toggle-card">
-      <div class="mode-toggle-copy">
-        <strong id="fallbackTitle">Attivo</strong>
-        <span id="fallbackDescription">Passa a un altro profilo/provider se si verifica un errore.</span>
-      </div>
-
-      <button id="fallbackToggle" class="switch" type="button" role="switch" aria-checked="true" aria-label="Fallback automatico">
-        <span class="switch-knob"></span>
-      </button>
     </div>
   </div>
 
@@ -498,7 +579,7 @@
   <div id="status"></div>
 
   <div class="shortcut" id="shortcutBox" data-i18n-html="shortcutHtml">
-    ⌨️ Scorciatoie: <b>Alt+A</b> per selezionare un'area, <b>Alt+S</b> per catturare l'intera schermata visibile, <b>Alt+0</b> per la panic mode.
+    ⌨️ Scorciatoie: <b>Alt+A</b> seleziona un'area, <b>Alt+9</b> risolve l'intera pagina, <b>Alt+0</b> attiva la panic mode.
   </div>
   <div class="signature" data-i18n="signature">Creato con cura da SGOR</div>
 

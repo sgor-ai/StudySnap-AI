@@ -86,6 +86,11 @@
   border-color: rgba(128, 128, 128, 0.12);
 }
 
+.qsa-answer-box-fade-out {
+  animation: qsa-fade-out 0.5s ease forwards;
+  pointer-events: none;
+}
+
 /* Anche il testo diventa più scuro e leggibile all'hover */
 .qsa-answer-box:hover .qsa-answer-body {
   color: rgba(60, 60, 60, 0.8);
@@ -118,6 +123,11 @@
   from { 
     opacity: 0; 
     transform: translateY(10px) scale(0.97); 
+  }
+
+  @keyframes qsa-fade-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(10px) scale(0.97); }
   }
   to { 
     opacity: 1; 
