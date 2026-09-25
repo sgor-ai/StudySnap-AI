@@ -1,5 +1,11 @@
 # StudySnap AI
 
+<div align="center">
+  <img src="./icona.png" alt="StudySnap AI" width="128">
+  <h2>Capture, understand and study with AI</h2>
+  <img src="./docs/demo.gif" alt="StudySnap AI demo" width="100%">
+</div>
+
 Estensione Chrome per analizzare pagine, esercizi, testo e immagini con un provider AI.
 Pensata anche per supportare lo studio senza modificare automaticamente la pagina
 quando l'opzione **Auto-answer** è disattivata.
@@ -61,4 +67,3 @@ La versione corrente è **2.0.0**.
 
 Le impostazioni, la cronologia e le immagini salvate restano nel browser.
 Il contenuto acquisito viene inviato solo al provider AI configurato.
-
