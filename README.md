@@ -18,7 +18,6 @@ It can also assist with study forms without changing the page when **Auto-answer
 - Answers in the in-page box and workspace history.
 - Optional filling of radio buttons, checkboxes, selects and text fields.
 - Support for image-based questions and shared context.
-- Protection for Name, Class, email, student ID and similar fields.
 - **Auto-answer** and **Panic mode** (`Alt+0`).
 
 ## Shortcuts
