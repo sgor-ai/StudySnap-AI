@@ -3,6 +3,7 @@
 <div align="center">
   <img src="./icona.png" alt="StudySnap AI" width="128">
   <h2>Capture, understand and study with AI</h2>
+  <img src="./docs/local-ai.svg" alt="StudySnap AI: capture, understand and study with AI" width="100%">
   <img src="./docs/demo.gif" alt="StudySnap AI demo" width="100%">
 </div>
 
@@ -29,6 +30,12 @@ It can also assist with study forms without changing the page when **Auto-answer
 | `Alt+0` | Enable or disable panic mode |
 | Context menu | Analyze selected text or images |
 
+See the [workflow diagram](./docs/workflow.svg) for an overview of the capture and answer flow.
+
+## Demo
+
+Watch the [demo video](./docs/video.mp4) or view the animated demo above.
+
 ## Auto-answer
 
 - **Disabled:** shows the answer without changing page fields.
@@ -43,6 +50,8 @@ It can also assist with study forms without changing the page when **Auto-answer
 - Anthropic
 - Ollama
 - OpenAI-compatible local servers such as LM Studio, Jan, GPT4All, LocalAI and vLLM
+
+![Local AI setup: choose an engine, connect the server, and use a vision model](./docs/hero.svg)
 
 ## Installation
 

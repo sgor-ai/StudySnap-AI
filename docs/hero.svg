@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">StudySnap AI Pro</title>
+  <desc id="desc">Capture any screen area and ask your preferred AI for a clear answer.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#17133d"/>
+      <stop offset=".55" stop-color="#39288f"/>
+      <stop offset="1" stop-color="#6d5efc"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1">
+      <stop stop-color="#ffffff" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".08"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-opacity=".3"/></filter>
+  </defs>
+  <rect width="1200" height="420" rx="32" fill="url(#bg)"/>
+  <circle cx="1030" cy="40" r="180" fill="#9d91ff" opacity=".15"/>
+  <circle cx="1110" cy="370" r="240" fill="#150f42" opacity=".22"/>
+  <g transform="translate(72 72)" filter="url(#shadow)">
+    <rect width="270" height="270" rx="54" fill="url(#card)" stroke="#fff" stroke-opacity=".28"/>
+    <circle cx="135" cy="135" r="88" fill="none" stroke="#fff" stroke-width="13" opacity=".9"/>
+    <path d="M135 42v52M135 176v52M42 135h52M176 135h52" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+    <rect x="82" y="78" width="106" height="118" rx="15" fill="#fff" opacity=".95"/>
+    <path d="M103 113h64M103 135h45M103 157h56" stroke="#8b7eff" stroke-width="9" stroke-linecap="round"/>
+    <path d="m143 168 13 13 31-35" fill="none" stroke="#4ee44a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="405" y="142" fill="#fff" font-family="Arial, sans-serif" font-size="54" font-weight="700">StudySnap AI Pro</text>
+  <text x="408" y="200" fill="#e8e5ff" font-family="Arial, sans-serif" font-size="25">Capture. Understand. Move faster.</text>
+  <text x="408" y="252" fill="#fff" font-family="Arial, sans-serif" font-size="20" opacity=".9">Chrome extension · cloud or local AI · Manifest V3</text>
+  <rect x="408" y="292" width="300" height="58" rx="29" fill="#fff"/>
+  <text x="558" y="329" text-anchor="middle" fill="#39288f" font-family="Arial, sans-serif" font-size="20" font-weight="700">Built by SGOR</text>
+</svg>
